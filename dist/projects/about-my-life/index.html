@@ -1,0 +1,1034 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="../project-scroll.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>人生手账本 · 项目介绍</title>
+<meta name="description" content="一个把童年到老年的回忆、写给未来的信、欲望清单和每一个第一次收进同一本手账的个人网站。">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='4' fill='%23FBF5E8'/%3E%3Crect x='7' y='5' width='18' height='22' fill='none' stroke='%23B96A3D' stroke-width='1.6'/%3E%3Cpath d='M11 11h10M11 15h10M11 19h6' stroke='%23332B24' stroke-width='1.2'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://miaoda.feishu.cn">
+<link rel="preconnect" href="https://fonts.feishu.cn" crossorigin>
+<link rel="stylesheet" href="https://miaoda.feishu.cn/fonts/css2?family=ZCOOL+KuaiLe&amp;family=Noto+Serif+SC:wght@400;600&amp;display=swap">
+<style>
+  :root{
+    --paper:#FBF5E8;
+    --paper-2:#F5EBDA;
+    --paper-3:#EFE2CB;
+    --card:#FFFCF4;
+    --ink:#332B24;
+    --ink-soft:#66594B;
+    --ink-faint:#9A8C7B;
+    --caramel:#B96A3D;
+    --blush:#E8B9AD;
+    --butter:#EBDBA6;
+    --mint:#C2D2BE;
+    --rule:rgba(70,55,40,.16);
+    --shadow:0 16px 34px -24px rgba(70,50,30,.55);
+  }
+
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    color:var(--ink);
+    background-color:var(--paper);
+    background-image:radial-gradient(rgba(110,90,70,.085) 1px, transparent 1px);
+    background-size:22px 22px;
+    font-family:"Noto Serif SC","Songti SC","SimSun","Times New Roman",serif;
+    font-size:16px;
+    line-height:1.85;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+  }
+  ::selection{background:rgba(185,106,61,.22)}
+  a{color:inherit}
+  img,svg{max-width:100%}
+  .grain{
+    position:fixed;
+    inset:0;
+    z-index:60;
+    pointer-events:none;
+    opacity:.16;
+    mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='n' opacity='0.4'/%3E%3C/svg%3E");
+    background-size:160px 160px;
+  }
+
+  /* ============ HERO ============ */
+  .hero{
+    position:relative;
+    padding:26px 20px 30px;
+  }
+  .hero-inner{
+    max-width:1180px;
+    margin:0 auto;
+    display:grid;
+    grid-template-columns:1fr;
+    gap:26px;
+  }
+  .hero-copy{position:relative;z-index:2;min-width:0}
+  .hero-title{
+    font-family:"ZCOOL KuaiLe","Noto Serif SC",serif;
+    font-weight:400;
+    font-size:clamp(48px,13.5vw,116px);
+    line-height:1.02;
+    letter-spacing:.01em;
+    margin:16px 0 0;
+    animation:titleIn 1.05s cubic-bezier(.16,1,.3,1) both;
+    text-wrap:balance;
+  }
+  .lede{
+    max-width:33em;
+    margin:20px 0 0;
+    font-size:clamp(16px,4.2vw,19px);
+    line-height:2;
+    color:var(--ink-soft);
+  }
+  .hero-actions{
+    display:flex;
+    flex-wrap:wrap;
+    gap:12px;
+    margin-top:26px;
+  }
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    min-height:46px;
+    padding:12px 20px;
+    font-family:inherit;
+    font-size:15px;
+    line-height:1.2;
+    text-decoration:none;
+    border:1px solid transparent;
+    border-radius:2px;
+    cursor:pointer;
+    transition:transform .2s ease, box-shadow .2s ease, background-color .2s ease, border-color .2s ease;
+  }
+  .btn:focus-visible{outline:2px solid var(--caramel);outline-offset:3px}
+  .btn-solid{
+    background:var(--ink);
+    color:var(--paper);
+    box-shadow:0 2px 0 rgba(50,38,28,.22);
+  }
+  .btn-solid:hover{transform:translateY(-2px);box-shadow:0 8px 16px -10px rgba(50,38,28,.7)}
+  .btn-ghost{
+    border-color:var(--rule);
+    color:var(--ink);
+    background:rgba(255,255,255,.4);
+  }
+  .btn-ghost:hover{transform:translateY(-2px);background:rgba(255,255,255,.75)}
+  .btn svg{flex:none}
+
+  .hero-facts{
+    list-style:none;
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px 22px;
+    margin:28px 0 0;
+    padding:0;
+    font-size:13.5px;
+    color:var(--ink-soft);
+  }
+  .hero-facts li{display:flex;align-items:center;gap:8px}
+  .hero-facts li::before{
+    content:"";
+    width:6px;
+    height:6px;
+    border:1px solid var(--caramel);
+    transform:rotate(45deg);
+    flex:none;
+  }
+
+  /* ---- hero 视觉：摊开的手账 ---- */
+  .hero-art{
+    position:relative;
+    height:392px;
+    margin-top:4px;
+  }
+  .sheet{
+    position:absolute;
+    inset:5% 4% 9% 2%;
+    background:#FFFCF4;
+    border-radius:2px;
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,.9),
+      inset 0 0 60px rgba(210,190,160,.28),
+      0 24px 48px -30px rgba(70,50,30,.6);
+    transform:rotate(-1.6deg);
+    animation:sheetIn .95s cubic-bezier(.16,1,.3,1) .1s both;
+  }
+  .sheet::before{
+    content:"";
+    position:absolute;
+    inset:12px;
+    background:repeating-linear-gradient(to bottom, transparent 0 27px, rgba(96,74,52,.11) 27px 28px);
+  }
+  .sheet::after{
+    content:"";
+    position:absolute;
+    top:0;
+    bottom:0;
+    left:15%;
+    width:1px;
+    background:rgba(185,106,61,.3);
+  }
+  .stamp{
+    position:absolute;
+    top:7%;
+    left:52%;
+    transform:translateX(-50%) rotate(-4deg);
+    border:2px solid rgba(185,106,61,.5);
+    outline:1px solid rgba(185,106,61,.22);
+    outline-offset:3px;
+    padding:6px 9px;
+    font-family:"ZCOOL KuaiLe",serif;
+    font-size:clamp(14px,3.9vw,19px);
+    letter-spacing:.16em;
+    line-height:1.25;
+    color:rgba(160,88,48,.85);
+    text-align:center;
+    opacity:.9;
+  }
+  .index-card{
+    position:absolute;
+    width:33%;
+    min-width:86px;
+    aspect-ratio:1/1;
+    padding:10px 10px 8px;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    background:var(--c);
+    box-shadow:0 14px 24px -18px rgba(70,50,30,.7);
+    transform:rotate(var(--rot));
+    animation:cardIn .85s cubic-bezier(.16,1,.3,1) var(--d) both;
+  }
+  .index-card::before{
+    content:"";
+    position:absolute;
+    top:-8px;
+    left:50%;
+    width:54%;
+    height:15px;
+    transform:translateX(-50%) rotate(-3deg);
+    background:rgba(255,255,255,.52);
+    border-left:1px dashed rgba(130,105,80,.22);
+    border-right:1px dashed rgba(130,105,80,.22);
+  }
+  .index-card b{
+    font-family:"ZCOOL KuaiLe",serif;
+    font-weight:400;
+    font-size:clamp(14px,4vw,21px);
+    line-height:1.2;
+    color:#463729;
+  }
+  .index-card i{
+    font-style:normal;
+    font-size:10.5px;
+    letter-spacing:.05em;
+    color:rgba(60,45,30,.62);
+    line-height:1.4;
+  }
+  .c1{--c:var(--blush); --rot:-7deg; --d:.85s; top:13%; left:9%}
+  .c2{--c:var(--butter); --rot:5deg; --d:1.1s; top:29%; right:7%}
+  .c3{--c:var(--mint); --rot:-3deg; --d:1.35s; bottom:25%; left:17%}
+  .c4{--c:#CBD7DF; --rot:8deg; --d:1.6s; bottom:9%; right:13%}
+
+  .envelope{
+    position:absolute;
+    width:45%;
+    aspect-ratio:3/2;
+    bottom:5%;
+    left:7%;
+    background:linear-gradient(155deg,#F7EBD3,#EAD8B8);
+    box-shadow:0 18px 30px -20px rgba(70,50,30,.75);
+    transform:rotate(-5deg);
+    animation:envIn .9s cubic-bezier(.16,1,.3,1) 2.15s both;
+  }
+  .envelope::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(165deg,#FBF1DC,#EDDCBF);
+    clip-path:polygon(0 0, 100% 0, 50% 53%);
+    box-shadow:inset 0 -1px 0 rgba(150,115,80,.25);
+  }
+  .envelope::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    border:1px solid rgba(150,115,80,.28);
+  }
+  .wax{
+    position:absolute;
+    left:50%;
+    top:47%;
+    width:clamp(38px,10vw,48px);
+    height:clamp(38px,10vw,48px);
+    margin-left:calc(clamp(38px,10vw,48px) / -2);
+    margin-top:calc(clamp(38px,10vw,48px) / -2);
+    border-radius:50%;
+    background:radial-gradient(circle at 34% 28%, #C97C4C, #9A5230 72%);
+    box-shadow:0 4px 8px rgba(70,40,22,.4), inset 0 -2px 4px rgba(90,45,20,.35);
+    display:grid;
+    place-items:center;
+    font-family:"ZCOOL KuaiLe",serif;
+    font-size:16px;
+    color:#FBEFDF;
+    animation:sealIn .6s cubic-bezier(.34,1.56,.64,1) 3.5s both;
+  }
+  .art-caption{
+    position:absolute;
+    right:3%;
+    bottom:0;
+    font-size:11.5px;
+    letter-spacing:.05em;
+    color:var(--ink-faint);
+  }
+
+  /* ---- 人生阶段条 ---- */
+  .lifestrip{
+    max-width:1180px;
+    margin:34px auto 0;
+    padding:0 20px;
+    position:relative;
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+  }
+  .lifestrip::before{
+    content:"";
+    position:absolute;
+    left:20px;
+    right:20px;
+    top:10px;
+    height:1px;
+    background:var(--rule);
+    transform-origin:left center;
+    animation:lineIn 1.1s ease 5.1s both;
+  }
+  .stage{
+    position:relative;
+    padding-top:26px;
+    text-align:center;
+    font-size:12px;
+    letter-spacing:.06em;
+    color:var(--ink-soft);
+    animation:fadeUp .55s ease var(--sd) both;
+  }
+  .stage::before{
+    content:"";
+    position:absolute;
+    top:5px;
+    left:50%;
+    width:10px;
+    height:10px;
+    margin-left:-5px;
+    border-radius:50%;
+    background:var(--paper);
+    border:1.5px solid var(--caramel);
+  }
+  .stage.now{color:var(--caramel)}
+  .stage.now::before{background:var(--caramel);box-shadow:0 0 0 5px rgba(185,106,61,.13)}
+  .stage.now::after{
+    content:"现在";
+    position:absolute;
+    top:26px;
+    left:50%;
+    transform:translateX(-50%);
+    font-size:10.5px;
+    color:var(--caramel);
+    letter-spacing:.12em;
+    white-space:nowrap;
+    padding-top:12px;
+  }
+  .s1{--sd:5.3s}.s2{--sd:5.45s}.s3{--sd:5.6s}.s4{--sd:5.75s}.s5{--sd:5.9s}
+
+  .scroll-cue{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    max-width:1180px;
+    margin:34px auto 0;
+    padding:0 20px;
+    font-size:12.5px;
+    letter-spacing:.08em;
+    color:var(--ink-faint);
+    text-decoration:none;
+  }
+  .scroll-cue svg{animation:cueBob 2.6s ease-in-out infinite}
+
+  /* ============ SECTIONS ============ */
+  .section{
+    max-width:1180px;
+    margin:0 auto;
+    padding:62px 20px 0;
+  }
+  .sec-head{
+    display:flex;
+    align-items:baseline;
+    gap:12px;
+    padding-bottom:14px;
+    border-bottom:1px solid var(--rule);
+  }
+  .sec-num{
+    font-size:12.5px;
+    letter-spacing:.12em;
+    color:var(--caramel);
+    flex:none;
+  }
+  .sec-title{
+    font-family:"ZCOOL KuaiLe",serif;
+    font-weight:400;
+    font-size:clamp(27px,7vw,38px);
+    line-height:1.15;
+    margin:0;
+    text-wrap:balance;
+  }
+  .sec-note{
+    margin-left:auto;
+    font-size:12px;
+    color:var(--ink-faint);
+    letter-spacing:.04em;
+    white-space:nowrap;
+    align-self:center;
+  }
+
+  /* ---- 01 起点 ---- */
+  .origin-grid{margin-top:28px;display:grid;gap:26px}
+  .origin-text p{
+    margin:0 0 18px;
+    font-size:16px;
+    line-height:2;
+    color:#453B31;
+    text-align:justify;
+  }
+  .origin-text p:last-child{margin-bottom:0}
+  .pullquote{
+    margin:0;
+    padding:18px 0 0;
+    border-top:2px solid rgba(185,106,61,.35);
+    font-family:"ZCOOL KuaiLe",serif;
+    font-size:clamp(19px,5.2vw,26px);
+    line-height:1.75;
+    color:#6B4A32;
+  }
+  .pullquote cite{
+    display:block;
+    margin-top:14px;
+    font-family:"Noto Serif SC",serif;
+    font-style:normal;
+    font-size:12px;
+    letter-spacing:.04em;
+    color:var(--ink-faint);
+  }
+
+  /* ---- 02 亮点 ---- */
+  .hl-list{margin-top:4px}
+  .hl-row{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:10px;
+    padding:26px 0;
+    border-bottom:1px dashed var(--rule);
+  }
+  .hl-icon{color:var(--caramel)}
+  .hl-icon svg{width:30px;height:30px}
+  .hl-title{
+    font-family:"ZCOOL KuaiLe",serif;
+    font-weight:400;
+    font-size:clamp(19px,5vw,24px);
+    line-height:1.35;
+    margin:0 0 6px;
+  }
+  .hl-body p{
+    margin:0;
+    max-width:46em;
+    font-size:15.5px;
+    line-height:1.95;
+    color:var(--ink-soft);
+  }
+
+  /* ---- 时间胶囊互动 ---- */
+  .capsule{
+    position:relative;
+    margin-top:40px;
+    padding:22px;
+    background:var(--paper-2);
+    border:1px solid rgba(130,100,72,.22);
+    border-radius:2px;
+    box-shadow:var(--shadow);
+  }
+  .capsule::before{
+    content:"";
+    position:absolute;
+    top:-9px;
+    left:50%;
+    width:110px;
+    height:17px;
+    transform:translateX(-50%) rotate(-1.4deg);
+    background:rgba(255,255,255,.5);
+    border-left:1px dashed rgba(130,105,80,.2);
+    border-right:1px dashed rgba(130,105,80,.2);
+  }
+  .capsule-head{
+    font-size:12.5px;
+    letter-spacing:.08em;
+    color:var(--ink-faint);
+    margin-bottom:14px;
+  }
+  .capsule-stage{display:grid;min-height:212px}
+  .letter,.sealed{grid-area:1/1;min-width:0}
+  .letter{
+    background:var(--card);
+    border:1px solid rgba(130,100,72,.18);
+    padding:20px 22px;
+    transition:opacity .45s ease, transform .55s cubic-bezier(.16,1,.3,1);
+    transform-origin:center top;
+  }
+  .letter p{margin:0 0 12px;font-size:15.5px;line-height:1.95;color:#3E3429}
+  .letter .to{font-family:"ZCOOL KuaiLe",serif;font-size:17px}
+  .letter .sign{text-align:right;color:var(--ink-soft);margin-bottom:0;font-size:14px}
+  .sealed{
+    display:grid;
+    place-content:center;
+    justify-items:center;
+    text-align:center;
+    gap:10px;
+    opacity:0;
+    transform:translateY(10px) scale(.985);
+    transition:opacity .5s ease .1s, transform .6s cubic-bezier(.16,1,.3,1) .1s;
+    padding:12px;
+  }
+  .seal-badge{
+    width:64px;
+    height:64px;
+    border-radius:50%;
+    background:radial-gradient(circle at 34% 28%, #C97C4C, #9A5230 72%);
+    box-shadow:0 6px 12px rgba(70,40,22,.35), inset 0 -2px 5px rgba(90,45,20,.3);
+    display:grid;
+    place-items:center;
+    font-family:"ZCOOL KuaiLe",serif;
+    font-size:26px;
+    color:#FBEFDF;
+  }
+  .sealed-title{
+    margin:0;
+    font-family:"ZCOOL KuaiLe",serif;
+    font-size:18px;
+    letter-spacing:.04em;
+  }
+  .sealed-date{
+    margin:0;
+    font-size:13.5px;
+    color:var(--ink-soft);
+    letter-spacing:.02em;
+  }
+  .capsule.is-sealed .letter{opacity:0;transform:translateY(-12px) scale(.97)}
+  .capsule.is-sealed .sealed{opacity:1;transform:none}
+  .capsule-actions{
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    gap:12px;
+    margin-top:18px;
+  }
+  .capsule-actions .btn{padding:11px 18px;font-size:14.5px}
+  .capsule-hint{
+    margin:0;
+    font-size:12.5px;
+    color:var(--ink-faint);
+  }
+
+  /* ---- 03 模块 ---- */
+  .module-grid{
+    margin-top:28px;
+    display:grid;
+    grid-template-columns:1fr;
+    gap:14px;
+  }
+  .module-card{
+    position:relative;
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+    min-height:176px;
+    padding:20px 18px 18px;
+    background:var(--card);
+    border:1px solid rgba(130,100,72,.18);
+    box-shadow:0 14px 28px -24px rgba(70,50,30,.6);
+    transform:rotate(var(--r,0deg));
+    transition:transform .26s cubic-bezier(.16,1,.3,1), box-shadow .26s ease;
+  }
+  .module-card::before{
+    content:"";
+    position:absolute;
+    top:-7px;
+    left:16px;
+    width:44px;
+    height:13px;
+    transform:rotate(-3deg);
+    background:rgba(255,255,255,.55);
+    border-left:1px dashed rgba(130,105,80,.16);
+    border-right:1px dashed rgba(130,105,80,.16);
+  }
+  .module-card:nth-child(3n+1){--r:-.5deg}
+  .module-card:nth-child(3n+2){--r:.4deg}
+  .module-card:nth-child(3n){--r:-.2deg}
+  .module-card:hover{transform:translateY(-4px) rotate(0);box-shadow:0 22px 38px -26px rgba(70,50,30,.75)}
+  .module-icon{color:var(--caramel)}
+  .module-icon svg{width:28px;height:28px}
+  .module-name{
+    font-family:"ZCOOL KuaiLe",serif;
+    font-weight:400;
+    font-size:19px;
+    line-height:1.3;
+    margin:0;
+  }
+  .module-desc{
+    margin:0;
+    font-size:14px;
+    line-height:1.85;
+    color:var(--ink-soft);
+    flex:1;
+  }
+  .module-note{
+    margin:22px 0 0;
+    font-size:13px;
+    line-height:1.9;
+    color:var(--ink-faint);
+  }
+
+  /* ---- 04 意义 ---- */
+  .meaning{
+    margin-top:30px;
+    display:grid;
+    gap:26px;
+  }
+  .statement{
+    margin:0;
+    font-family:"ZCOOL KuaiLe",serif;
+    font-weight:400;
+    font-size:clamp(24px,6.4vw,40px);
+    line-height:1.6;
+    color:#4A382A;
+    text-wrap:balance;
+  }
+  .meaning-text p{
+    margin:0 0 16px;
+    font-size:16px;
+    line-height:2.05;
+    color:#453B31;
+    text-align:justify;
+  }
+  .meaning-text p:last-child{margin-bottom:0}
+  .signature{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    margin-top:30px;
+    font-family:"ZCOOL KuaiLe",serif;
+    font-size:17px;
+    color:var(--caramel);
+  }
+  .signature .stampmark{
+    width:54px;
+    height:54px;
+    flex:none;
+    border:2px solid rgba(185,106,61,.55);
+    border-radius:50%;
+    display:grid;
+    place-items:center;
+    font-size:11px;
+    letter-spacing:.08em;
+    line-height:1.35;
+    color:rgba(160,88,48,.9);
+    transform:rotate(-9deg);
+  }
+
+  /* ---- FOOTER ---- */
+  .footer{
+    max-width:1180px;
+    margin:72px auto 0;
+    padding:24px 20px 54px;
+    border-top:1px solid var(--rule);
+  }
+  .foot-top{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px 26px;
+    align-items:baseline;
+  }
+  .foot-name{
+    font-family:"ZCOOL KuaiLe",serif;
+    font-size:18px;
+    letter-spacing:.02em;
+  }
+  .foot-link{
+    font-size:13px;
+    color:var(--caramel);
+    text-decoration:none;
+    border-bottom:1px solid rgba(185,106,61,.4);
+    padding-bottom:1px;
+  }
+  /* ============ 动效 ============ */
+  @keyframes titleIn{
+    from{opacity:0;transform:translateY(16px);filter:blur(7px)}
+    to{opacity:1;transform:translateY(0);filter:blur(0)}
+  }
+  @keyframes sheetIn{
+    from{opacity:0;transform:translateY(28px) rotate(-4.5deg) scale(.985)}
+    to{opacity:1;transform:rotate(-1.6deg) scale(1)}
+  }
+  @keyframes cardIn{
+    from{opacity:0;transform:translateY(24px) rotate(0deg) scale(.99)}
+    to{opacity:1;transform:translateY(0) rotate(var(--rot)) scale(1)}
+  }
+  @keyframes envIn{
+    from{opacity:0;transform:translateY(34px) rotate(-9deg)}
+    to{opacity:1;transform:translateY(0) rotate(-5deg)}
+  }
+  @keyframes sealIn{
+    0%{opacity:0;transform:scale(1.9) rotate(-18deg)}
+    70%{opacity:1;transform:scale(.94) rotate(4deg)}
+    100%{opacity:1;transform:scale(1) rotate(0deg)}
+  }
+  @keyframes lineIn{
+    from{transform:scaleX(0)}
+    to{transform:scaleX(1)}
+  }
+  @keyframes fadeUp{
+    from{opacity:0;transform:translateY(7px)}
+    to{opacity:1;transform:translateY(0)}
+  }
+  @keyframes cueBob{
+    0%,100%{transform:translateY(0)}
+    50%{transform:translateY(5px)}
+  }
+
+  /* ============ 响应式 ============ */
+  @media (min-width:640px){
+    .hero{padding:34px 28px 34px}
+    .section{padding:74px 28px 0}
+    .lifestrip{padding:0 28px}
+    .lifestrip::before{left:28px;right:28px}
+  }
+  @media (min-width:900px){
+    .hero{padding:44px 36px 40px}
+    .hero-inner{grid-template-columns:1.02fr .98fr;gap:36px;align-items:center;padding-top:10px}
+    .hero-art{height:min(560px,66vh);margin-top:0}
+    .section{padding:96px 36px 0}
+    .lifestrip{padding:0 36px}
+    .lifestrip::before{left:36px;right:36px}
+    .origin-grid{grid-template-columns:1.36fr .64fr;gap:52px;margin-top:32px}
+    .hl-row{grid-template-columns:56px 1fr;gap:24px;padding:32px 0}
+    .module-grid{grid-template-columns:repeat(3,1fr);gap:18px;margin-top:32px}
+    .meaning{grid-template-columns:.92fr 1.08fr;gap:54px;align-items:start}
+    .footer{padding:26px 36px 62px}
+  }
+  @media (min-width:1180px){
+    .hero-art{height:min(600px,64vh)}
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    *,*::before,*::after{
+      animation:none !important;
+      transition-duration:.01s !important;
+    }
+  }
+</style>
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+
+<header class="hero" id="top">
+  <div class="hero-inner">
+    <div class="hero-copy">
+      <h1 class="hero-title">人生手账本</h1>
+      <p class="lede">把童年到老年的回忆、写给未来的信、欲望清单，和每一个“第一次”，收进同一本手账。</p>
+      <div class="hero-actions">
+        <a class="btn btn-solid" href="https://chenip1.github.io/AboutMyLife/" target="_blank" rel="noopener">
+          打开手账本
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13"/><path d="M13 6l6 6-6 6"/></svg>
+        </a>
+        <a class="btn btn-ghost" href="#origin">先看看它怎么来的</a>
+      </div>
+      <ul class="hero-facts">
+        <li>九种记录方式</li>
+        <li>无需登录</li>
+        <li>数据留在本机</li>
+      </ul>
+    </div>
+
+    <div class="hero-art" aria-hidden="true">
+      <div class="sheet">
+        <div class="stamp">人 生 手 账</div>
+      </div>
+      <div class="index-card c1"><b>童年</b><i>第一次记得的夏天</i></div>
+      <div class="index-card c2"><b>青年</b><i>正在发生的二十岁</i></div>
+      <div class="index-card c3"><b>中年</b><i>以后想成为的样子</i></div>
+      <div class="index-card c4"><b>老年</b><i>回头看这一生</i></div>
+      <div class="envelope"><span class="wax">封</span></div>
+      <span class="art-caption">一本手账，九个角落</span>
+    </div>
+  </div>
+
+  <div class="lifestrip" aria-hidden="true">
+    <span class="stage s1">童年</span>
+    <span class="stage s2">少年</span>
+    <span class="stage s3 now">青年</span>
+    <span class="stage s4">中年</span>
+    <span class="stage s5">老年</span>
+  </div>
+
+  <a class="scroll-cue" href="#origin">
+    往下读
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v13"/><path d="M6 13l6 6 6-6"/></svg>
+  </a>
+</header>
+
+<main id="main">
+  <!-- ===== 01 灵感来源 ===== -->
+  <section class="section" id="origin">
+    <div class="sec-head">
+      <span class="sec-num">01</span>
+      <h2 class="sec-title">灵感来源</h2>
+      <span class="sec-note">从一个很具体的念头开始</span>
+    </div>
+    <div class="origin-grid">
+      <div class="origin-text">
+        <p>这个项目不是从一句需求开始的。它开始于一个很具体的念头：我 20 岁，人生里的“第一次”正在密集地发生——第一次一个人出门旅行，第一次拿到自己挣的钱，第一次在海边坐到天黑。每发生一次，我都会短暂地意识到：我正在这个世界上留下自己的痕迹。</p>
+        <p>但这些痕迹太容易散掉。照片在相册里，心情在备忘录里，想说的话在聊天记录里，过两年就翻不到了。我想要一个地方，把童年、青年、中年、老年的回忆和对未来的畅想放在一起；每天能写一个问题给未来的自己，也能在几年后拆开过去的信；能记下我现在想要什么、以前想要什么、未来想要什么；能认真收藏每一个“第一次”、每一年生日收到的和送给自己的礼物、我的菜谱、我的房间、我的书桌，还有每一段旅行。</p>
+        <p>于是有了这本“大集合式电子手账”。它不是九个分散的工具，而是一个能一直写下去的本子——从 20 岁写到老年。</p>
+      </div>
+      <aside class="pullquote">
+        “20 岁会有很多很多的第一次，想想是我来到这个世界的第一次，就很激动。”
+        <cite>项目最初的笔记</cite>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ===== 02 亮点 ===== -->
+  <section class="section" id="highlights">
+    <div class="sec-head">
+      <span class="sec-num">02</span>
+      <h2 class="sec-title">四个亮点</h2>
+      <span class="sec-note">不是工具集合，是一本手账</span>
+    </div>
+    <div class="hl-list">
+
+      <div class="hl-row">
+        <div class="hl-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="6" width="18" height="12" rx="1.4"/><path d="M3.6 7L12 13l8.4-6"/></svg>
+        </div>
+        <div class="hl-body">
+          <h3 class="hl-title">时间胶囊，和未来的自己通信</h3>
+          <p>写给未来：选一个开启时间，一年、三年、五年、十年，或者自己定一个日期。封好之后内容就藏起来，谁都看不到；打开过去：到日子的那天回来拆信，读完还能接着回一封。时间在这里是双向的。</p>
+        </div>
+      </div>
+
+      <div class="hl-row">
+        <div class="hl-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17"/><path d="M12 3.5v17M3.5 12h17"/></svg>
+        </div>
+        <div class="hl-body">
+          <h3 class="hl-title">九种记录，一个入口</h3>
+          <p>回忆、成长、欲望、心情、第一次、礼物、生活、旅行，全在同一本手账里。首页用九宫格摆开，点进去就是对应的一页，左上角一键回到手账本，不用在九个 App 之间来回跳。</p>
+        </div>
+      </div>
+
+      <div class="hl-row">
+        <div class="hl-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.4 16.5a4 4 0 0 1 .5-7.9 5 5 0 0 1 9.4-1.1 3.6 3.6 0 0 1 .6 7.1"/><path d="M4 4l16 16"/></svg>
+        </div>
+        <div class="hl-body">
+          <h3 class="hl-title">不用注册，打开就能写</h3>
+          <p>没有账号，也没有登录页。记录保存在自己的浏览器里，刷新、关机、第二天再打开都还在；照片可以一起存进去。想写的时候，打开链接就能写。</p>
+        </div>
+      </div>
+
+      <div class="hl-row">
+        <div class="hl-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20l3.2-.9 10.9-10.9-2.3-2.3L4.9 16.8z"/><path d="M14.1 7.2l2.3 2.3"/></svg>
+        </div>
+        <div class="hl-body">
+          <h3 class="hl-title">像一本真的手账那样好看</h3>
+          <p>标题是圆滚滚的站酷快乐体，纸色底上压着横线、胶带、便签和马卡龙色的小卡片。记录这件事，本身也变得值得期待一点。</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 时间胶囊互动演示 -->
+    <div class="capsule" id="capsule">
+      <div class="capsule-head">时间胶囊 · 可以点一下试试</div>
+      <div class="capsule-stage">
+        <div class="letter" id="letter">
+          <p class="to">给十年后的我：</p>
+          <p>希望你还在写东西，还在为一些很小的事情高兴。希望你已经去过几个一直想去的地方，也还留着几个没去过的。</p>
+          <p>如果那时候你已经忘了 20 岁的自己是什么样，就看看这一页。</p>
+          <p class="sign">—— 2026 年的我</p>
+        </div>
+        <div class="sealed" id="sealed" aria-hidden="true">
+          <span class="seal-badge">封</span>
+          <p class="sealed-title">这封信已经封存</p>
+          <p class="sealed-date">将于 <span id="unlockDate">2036 年 11 月 10 日</span> 开启</p>
+        </div>
+      </div>
+      <div class="capsule-actions">
+        <button class="btn btn-solid" id="capsuleBtn" type="button" aria-pressed="false">封存这封信</button>
+        <p class="capsule-hint" id="capsuleHint">演示用，不会保存任何内容</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 03 模块 ===== -->
+  <section class="section" id="modules">
+    <div class="sec-head">
+      <span class="sec-num">03</span>
+      <h2 class="sec-title">九个模块</h2>
+      <span class="sec-note">各写各的，共用一个本子</span>
+    </div>
+
+    <div class="module-grid">
+
+      <article class="module-card">
+        <div class="module-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6c2.8-1 5.6-1 8 0v13c-2.4-1-5.2-1-8 0z"/><path d="M20 6c-2.8-1-5.6-1-8 0v13c2.4-1 5.2-1 8 0z"/></svg>
+        </div>
+        <h3 class="module-name">回忆录与畅想</h3>
+        <p class="module-desc">按童年、青年、中年、老年分成四栏，回忆和畅想都能写。写完是一张张图文卡片，像翻一本旧相册。</p>
+      </article>
+
+      <article class="module-card">
+        <div class="module-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="6" width="18" height="12" rx="1.4"/><path d="M3.6 7L12 13l8.4-6"/></svg>
+        </div>
+        <h3 class="module-name">时间胶囊</h3>
+        <p class="module-desc">写给未来，也打开过去。可选 1 / 3 / 5 / 10 年或自定义日期，没到日子的信保持密封。</p>
+      </article>
+
+      <article class="module-card">
+        <div class="module-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20v-8"/><path d="M12 12c0-3-2.6-5.2-6-5.2 0 3 2.6 5.2 6 5.2z"/><path d="M12 14c0-3 2.6-5.2 6-5.2 0 3-2.6 5.2-6 5.2z"/></svg>
+        </div>
+        <h3 class="module-name">成长史</h3>
+        <p class="module-desc">一条时间线记下成长节点，旁边留一栏认真回答“我是一个什么样的人”。</p>
+      </article>
+
+      <article class="module-card">
+        <div class="module-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h9M4 12h11M4 18h7"/><path d="M18.5 15c-1.3-1.3-3.2-.2-3.2 1.2 0 2 3.2 3.8 3.2 3.8s3.2-1.8 3.2-3.8c0-1.4-1.9-2.5-3.2-1.2z"/></svg>
+        </div>
+        <h3 class="module-name">欲望清单</h3>
+        <p class="module-desc">以前、现在、未来三栏并排，给每件事标上想要的星级，实现之后打一个勾。</p>
+      </article>
+
+      <article class="module-card">
+        <div class="module-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="1.6"/><path d="M4 10h16M8 3v4M16 3v4"/><path d="M9.2 15.4c1-1.5 2.6-1.5 3.6 0"/></svg>
+        </div>
+        <h3 class="module-name">心情日记</h3>
+        <p class="module-desc">日历和列表两种看法，七种心情标记；月底回看，这个月原来是这样的情绪曲线。</p>
+      </article>
+
+      <article class="module-card">
+        <div class="module-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="3" width="14" height="18" rx="1.4"/><rect x="7" y="5.4" width="10" height="9.6"/><circle cx="10" cy="8.4" r="1.1"/><path d="M7 14l3.4-3 3.4 3"/></svg>
+        </div>
+        <h3 class="module-name">第一次收藏馆</h3>
+        <p class="module-desc">像一面拍立得墙，把人生里的第一次一张张贴上去，可以配好几张照片。</p>
+      </article>
+
+      <article class="module-card">
+        <div class="module-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="10" width="16" height="10"/><path d="M3 7h18v3H3zM12 7v13"/><path d="M12 7c-3.4 0-4.6-3-2.8-3.8 1.9-.9 2.8 1.5 2.8 3.8z"/><path d="M12 7c3.4 0 4.6-3 2.8-3.8-1.9-.9-2.8 1.5-2.8 3.8z"/></svg>
+        </div>
+        <h3 class="module-name">生日礼物收藏</h3>
+        <p class="module-desc">按年份排成时间线，别人送的和自己送自己的，都留一张照片。</p>
+      </article>
+
+      <article class="module-card">
+        <div class="module-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 11h16c0 5-3.6 8-8 8S4 16 4 11z"/><path d="M10 8c0-2 1-2 1-4M14 8c0-2 1-2 1-4"/><path d="M4 11h16"/></svg>
+        </div>
+        <h3 class="module-name">生活图鉴</h3>
+        <p class="module-desc">菜谱、我的房间、我的书桌——日常里最熟悉的三样东西，也值得留下一页。</p>
+      </article>
+
+      <article class="module-card">
+        <div class="module-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s7-6.3 7-11a7 7 0 1 0-14 0c0 4.7 7 11 7 11z"/><circle cx="12" cy="10" r="2.4"/></svg>
+        </div>
+        <h3 class="module-name">旅行记录</h3>
+        <p class="module-desc">目的地、时间、故事和图集，去过的地方按大图排开，照片可以左右滑。</p>
+      </article>
+
+    </div>
+
+    <p class="module-note">九个模块共用一套入口和视觉，写完的每一页都留在同一个本子里；首页九宫格选一个，模块页左上角回到手账。</p>
+  </section>
+
+  <!-- ===== 04 意义 ===== -->
+  <section class="section" id="meaning">
+    <div class="sec-head">
+      <span class="sec-num">04</span>
+      <h2 class="sec-title">记录的意义</h2>
+      <span class="sec-note">写给以后的我</span>
+    </div>
+
+    <div class="meaning">
+      <p class="statement">记录不是为了留住过去，是为了在未来的某一天，能确认自己真的这样活过。</p>
+      <div class="meaning-text">
+        <p>这本手账最后会长成一份关于“我是谁”的证据：我为什么高兴，为什么难过，想要过什么，放弃了什么，在哪些时刻第一次成为新的自己。</p>
+        <p>它不需要写得漂亮。它只需要真实——像一本被翻旧的本子，边角起毛，折痕很深，但每一页都算数。等我到中年、老年，再回头看 20 岁写下的这些字，希望我会觉得：那时候的我，真认真地在生活。</p>
+        <div class="signature">
+          <span class="stampmark">20 岁<br>2026</span>
+          <span>写于二十岁</span>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+  <footer class="footer">
+    <div class="foot-top">
+      <span class="foot-name">人生手账本</span>
+      <a class="foot-link" href="https://chenip1.github.io/AboutMyLife/" target="_blank" rel="noopener">打开手账本</a>
+    </div>
+  </footer>
+
+<script>
+  (function () {
+    var capsule = document.getElementById('capsule');
+    var btn = document.getElementById('capsuleBtn');
+    var hint = document.getElementById('capsuleHint');
+    var sealed = document.getElementById('sealed');
+    var unlock = document.getElementById('unlockDate');
+    if (!capsule || !btn) return;
+
+    hint.setAttribute('aria-live', 'polite');
+
+    var now = new Date();
+    var target = new Date(now.getFullYear() + 10, now.getMonth(), now.getDate());
+    if (unlock) {
+      unlock.textContent = target.getFullYear() + ' 年 ' +
+        (target.getMonth() + 1) + ' 月 ' + target.getDate() + ' 日';
+    }
+
+    btn.addEventListener('click', function () {
+      var isSealed = capsule.classList.toggle('is-sealed');
+      btn.setAttribute('aria-pressed', isSealed ? 'true' : 'false');
+      btn.textContent = isSealed ? '拆开这封信' : '封存这封信';
+      hint.textContent = isSealed
+        ? '演示：已封存，点击按钮可以提前拆开'
+        : '演示用，不会保存任何内容';
+      sealed.setAttribute('aria-hidden', isSealed ? 'false' : 'true');
+    });
+  })();
+</script>
+</body>
+</html>
